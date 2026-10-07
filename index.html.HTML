@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario Interactivo: El Proceso Tecnológico - 1º ESO</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: var(--secondary);
+            margin-top: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .student-info {
+            background-color: #eef7fc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .student-info label {
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .student-info input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+
+        .theory-box {
+            background-color: #f8f9fa;
+            border-left: 5px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .exercise-box {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .question {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        select, input[type="number"], input[type="text"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--success);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #27ae60;
+        }
+
+        .btn-download {
+            display: none;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--secondary);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .btn-download:hover {
+            background-color: #2980b9;
+        }
+
+        #report-section {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f1f9f5;
+            border: 2px dashed var(--success);
+            border-radius: 8px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-size: 0.85em;
+        }
+        .correct { background-color: var(--success); }
+        .incorrect { background-color: var(--danger); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔬 El Proceso Tecnológico - 1º ESO</h1>
+    <p>Completa las explicaciones, realiza todos los ejercicios prácticos en la pantalla y genera tu reporte final para enviarlo por Google Classroom.</p>
+
+    <!-- DATOS DEL ALUMNO -->
+    <div class="student-info">
+        <label>Nombre y Apellidos:
+            <input type="text" id="student-name" placeholder="Ej: María García López" required>
+        </label>
+        <label>Curso y Grupo:
+            <input type="text" id="student-group" placeholder="Ej: 1º ESO A" required>
+        </label>
+    </div>
+
+    <form id="quiz-form">
+
+        <!-- SECCIÓN 1: ETAPAS DEL PROCESO TECNOLÓGICO -->
+        <h2>1. Las Etapas del Proceso Tecnológico</h2>
+        <div class="theory-box">
+            <strong>Resumen Teórico:</strong>
+            El proceso tecnológico consta de varias etapas ordenadas para resolver un problema o necesidad:
+            <ul>
+                <li><strong>Análisis de necesidades:</strong> Identificar qué problema queremos resolver.</li>
+                <li><strong>Búsqueda de información y soluciones previas:</strong> Investigar en libros o internet.</li>
+                <li><strong>Diseño individual:</strong> Dibujar nuestras primeras ideas y bocetos.</li>
+                <li><strong>Puesta en común y elección:</strong> Seleccionar la mejor opción en equipo.</li>
+                <li><strong>Desarrollo y planos:</strong> Realizar dibujos técnicos (vistas, despieces).</li>
+                <li><strong>Planificación y presupuesto:</strong> Organizar tareas, materiales y calcular costes.</li>
+                <li><strong>Construcción y modificación:</strong> Fabricar el objeto en el taller.</li>
+                <li><strong>Evaluación e informe final:</strong> Comprobar si funciona y redactar la memoria.</li>
+            </ul>
+        </div>
+
+        <div class="exercise-box">
+            <div class="question">
+                <p><strong>Ejercicio 1:</strong> Relaciona cada acción con la fase del proceso tecnológico a la que pertenece:</p>
+                
+                <p>a) Calcular el precio de los materiales y la mano de obra:
+                    <select id="q1a" required>
+                        <option value="">-- Selecciona --</option>
+                        <option value="presupuesto">Planificación y Presupuesto</option>
+                        <option value="evaluacion">Evaluación</option>
+                        <option value="busqueda">Búsqueda de Información</option>
+                    </select>
+                </p>
+
+                <p>b) Investigar en libros o internet sobre cómo funcionan los sistemas de riego por goteo:
+                    <select id="q1b" required>
+                        <option value="">-- Selecciona --</option>
+                        <option value="diseno">Diseño Individual</option>
+                        <option value="busqueda">Búsqueda de Información</option>
+                        <option value="construccion">Construcción</option>
+                    </select>
+                </p>
+
+                <p>c) Comprobar si el producto final cumple su función y es seguro de usar:
+                    <select id="q1c" required>
+                        <option value="">-- Selecciona --</option>
+                        <option value="evaluacion">Evaluación del Producto</option>
+                        <option value="planos">Desarrollo de Soluciones (Planos)</option>
+                        <option value="necesidades">Análisis de Necesidades</option>
+                    </select>
+                </p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: ANÁLISIS DE OBJETOS TECNOLÓGICOS -->
+        <h2>2. Análisis de Objetos Tecnológicos</h2>
+        <div class="theory-box">
+            <strong>Resumen Teórico:</strong>
+            Para comprender cómo funciona un objeto tecnológico realizamos 4 tipos de análisis:
+            <ul>
+                <li><strong>Análisis Formal:</strong> Analiza la forma exterior, colores y dimensiones.</li>
+                <li><strong>Análisis Técnico:</strong> Piezas, materiales, uniones y proceso de fabricación.</li>
+                <li><strong>Análisis Funcional:</strong> Para qué sirve, cómo funciona y normas de seguridad.</li>
+                <li><strong>Análisis Socioeconómico:</strong> Necesidad que satisface, precio e impacto ambiental.</li>
+            </ul>
+        </div>
+
+        <div class="exercise-box">
+            <div class="question">
+                <p><strong>Ejercicio 2:</strong> Indica qué tipo de análisis se está realizando en cada pregunta:</p>
+                
+                <p>a) "¿De qué materiales (madera, plástico, metal) está construida cada pieza del ventilador?"
+                    <select id="q2a" required>
+                        <option value="">-- Selecciona --</option>
+                        <option value="formal">Análisis Formal</option>
+                        <option value="tecnico">Análisis Técnico</option>
+                        <option value="funcional">Análisis Funcional</option>
+                        <option value="socioeconomico">Análisis Socioeconómico</option>
+                    </select>
+                </p>
+
+                <p>b) "¿Qué impacto ambiental tiene el reciclaje de este objeto al final de su vida útil?"
+                    <select id="q2b" required>
+                        <option value="">-- Selecciona --</option>
+                        <option value="formal">Análisis Formal</option>
+                        <option value="tecnico">Análisis Técnico</option>
+                        <option value="funcional">Análisis Funcional</option>
+                        <option value="socioeconomico">Análisis Socioeconómico</option>
+                    </select>
+                </p>
+
+                <p>c) "¿Cuáles son sus dimensiones exactas (altura, anchura y profundidad en mm)?"
+                    <select id="q2c" required>
+                        <option value="">-- Selecciona --</option>
+                        <option value="formal">Análisis Formal</option>
+                        <option value="tecnico">Análisis Técnico</option>
+                        <option value="funcional">Análisis Funcional</option>
+                        <option value="socioeconomico">Análisis Socioeconómico</option>
+                    </select>
+                </p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: CÁLCULO PRÁCTICO DE PRESUPUESTO -->
+        <h2>3. El Presupuesto del Proyecto (Production Estimate)</h2>
+        <div class="theory-box">
+            <strong>Resumen Teórico:</strong>
+            El presupuesto calcula el coste estimado del proyecto antes de construirlo. Se obtiene calculando el coste del material (Cantidad × Precio Unitario), sumando los costes y añadiendo el <strong>IVA (21%)</strong>.
+        </div>
+
+        <div class="exercise-box">
+            <div class="question">
+                <p><strong>Ejercicio 3:</strong> Completa la siguiente tabla de presupuesto calculando los datos numéricos que faltan:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Material / Concepto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Total (€)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Palitos de madera</td>
+                            <td>10 unidades</td>
+                            <td>0,05 €/ud</td>
+                            <td><input type="number" id="calc1" step="0.01" placeholder="Ej: 0.50" required></td>
+                        </tr>
+                        <tr>
+                            <td>Tablero de contrachapado</td>
+                            <td>2 unidades</td>
+                            <td>1,20 €/ud</td>
+                            <td><input type="number" id="calc2" step="0.01" placeholder="Ej: 2.40" required></td>
+                        </tr>
+                        <tr>
+                            <td>Bote de cola blanca</td>
+                            <td>1 unidad</td>
+                            <td>0,50 €/ud</td>
+                            <td><input type="number" id="calc3" step="0.01" placeholder="Ej: 0.50" required></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="text-align: right;"><strong>SUBTOTAL MATERIALES (€):</strong></td>
+                            <td><input type="number" id="calc_subtotal" step="0.01" placeholder="Suma parcial" required></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="text-align: right;"><strong>IVA (21% del Subtotal) (€):</strong></td>
+                            <td><input type="number" id="calc_iva" step="0.01" placeholder="Calcula el 21%" required></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="text-align: right;"><strong>COSTE TOTAL CON IVA (€):</strong></td>
+                            <td><input type="number" id="calc_total" step="0.01" placeholder="Total final" required></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 4: SEÑALES DE SEGURIDAD Y REGLAS DE TALLER -->
+        <h2>4. Seguridad en el Taller y Normas</h2>
+        <div class="theory-box">
+            <strong>Resumen Teórico:</strong>
+            En el taller de tecnología las señales se clasifican por forma y color:
+            <ul>
+                <li><strong>Obligación:</strong> Redondas y azules (ej: uso obligatorio de gafas/casco).</li>
+                <li><strong>Advertencia:</strong> Triangulares y amarillas (ej: riesgo eléctrico, alta temperatura).</li>
+                <li><strong>Prohibición:</strong> Redondas con borde rojo y barra diagonal (ej: prohibido pasar/fumar).</li>
+                <li><strong>Salvamento/Emergencia:</strong> Rectangulares o cuadradas verdes (ej: primeros auxilios).</li>
+            </ul>
+        </div>
+
+        <div class="exercise-box">
+            <div class="question">
+                <p><strong>Ejercicio 4:</strong> Responde Verdadero (V) o Falso (F) según las normas del taller y la evaluación del proyecto:</p>
+                
+                <p>a) Una señal triangular amarilla con borde negro indica obligación de usar protección para los ojos.
+                    <select id="q4a" required>
+                        <option value="">-- Selecciona --</option>
+                        <option value="V">Verdadero (V)</option>
+                        <option value="F">Falso (F)</option>
+                    </select>
+                </p>
+
+                <p>b) Antes de empezar a trabajar en el taller es necesario conocer el plan de trabajo y las normas de seguridad.
+                    <select id="q4b" required>
+                        <option value="">-- Selecciona --</option>
+                        <option value="V">Verdadero (V)</option>
+                        <option value="F">Falso (F)</option>
+                    </select>
+                </p>
+
+                <p>c) El informe final debe incluir portada, índice, diario de incidencias y presupuesto.
+                    <select id="q4c" required>
+                        <option value="">-- Selecciona --</option>
+                        <option value="V">Verdadero (V)</option>
+                        <option value="F">Falso (F)</option>
+                    </select>
+                </p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 5: ANÁLISIS DAFO / SWOT -->
+        <h2>5. Análisis DAFO (SWOT Analysis)</h2>
+        <div class="theory-box">
+            <strong>Resumen Teórico:</strong>
+            El análisis DAFO evalúa las <strong>Fortalezas</strong> (puntos fuertes internos), <strong>Debilidades</strong> (puntos débiles internos), <strong>Oportunidades</strong> (factores externos positivos) y <strong>Amenazas</strong> (factores externos negativos).
+        </div>
+
+        <div class="exercise-box">
+            <div class="question">
+                <p><strong>Ejercicio 5:</strong> Clasifica los siguientes enunciados según corresponda:</p>
+                
+                <p>a) "El grupo carece de herramientas adecuadas en el taller para cortar metacrilato fácilmente."
+                    <select id="q5a" required>
+                        <option value="">-- Selecciona --</option>
+                        <option value="fortaleza">Fortaleza</option>
+                        <option value="debilidad">Debilidad</option>
+                        <option value="oportunidad">Oportunidad</option>
+                        <option value="amenaza">Amenaza</option>
+                    </select>
+                </p>
+
+                <p>b) "Aumento en el precio de la madera en las tiendas por falta de suministros."
+                    <select id="q5b" required>
+                        <option value="">-- Selecciona --</option>
+                        <option value="fortaleza">Fortaleza</option>
+                        <option value="debilidad">Debilidad</option>
+                        <option value="oportunidad">Oportunidad</option>
+                        <option value="amenaza">Amenaza</option>
+                    </select>
+                </p>
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="evaluateQuiz()">Corregir y Generar Reporte</button>
+    </form>
+
+    <!-- REPORTE DE RESULTADOS -->
+    <div id="report-section">
+        <h2>📋 Reporte Final de Resultados</h2>
+        <div id="report-details"></div>
+        <button class="btn-download" id="download-btn" onclick="downloadReport()">📥 Descargar Resultados para Classroom (.txt)</button>
+    </div>
+</div>
+
+<script>
+    let globalReportText = "";
+
+    function evaluateQuiz() {
+        const name = document.getElementById('student-name').value.trim();
+        const group = document.getElementById('student-group').value.trim();
+
+        if (!name || !group) {
+            alert("Por favor, introduce tu Nombre y Curso antes de corregir el cuestionario.");
+            return;
+        }
+
+        let score = 0;
+        let totalQuestions = 14; // Total de items evaluados
+        let reportDetails = "";
+
+        // Helper function for checking selects
+        function checkSelect(id, correctVal, desc) {
+            const val = document.getElementById(id).value;
+            const isCorrect = (val === correctVal);
+            if (isCorrect) score++;
+            reportDetails += `<p>• ${desc}: <strong>${val || 'Sin responder'}</strong> ${isCorrect ? '<span class="badge correct">Correcto</span>' : '<span class="badge incorrect">Incorrecto (Correcto: ' + correctVal + ')</span>'}</p>`;
+            return isCorrect;
+        }
+
+        // Helper function for checking float values
+        function checkFloat(id, correctVal, desc, margin = 0.02) {
+            const val = parseFloat(document.getElementById(id).value);
+            const isCorrect = !isNaN(val) && Math.abs(val - correctVal) <= margin;
+            if (isCorrect) score++;
+            reportDetails += `<p>• ${desc}: <strong>${isNaN(val) ? 'Sin responder' : val.toFixed(2) + ' €'}</strong> ${isCorrect ? '<span class="badge correct">Correcto</span>' : '<span class="badge incorrect">Incorrecto (Esperado: ' + correctVal.toFixed(2) + ' €)</span>'}</p>`;
+            return isCorrect;
+        }
+
+        reportDetails += `<h3>Alumno: ${name} | Curso: ${group}</h3>`;
+        reportDetails += `<p><strong>Fecha de realización:</strong> ${new Date().toLocaleString('es-ES')}</p><hr>`;
+
+        // Section 1
+        reportDetails += `<h4>1. Etapas del Proceso Tecnológico</h4>`;
+        checkSelect('q1a', 'presupuesto', 'Acción A (Calcular precio)');
+        checkSelect('q1b', 'busqueda', 'Acción B (Investigar riego)');
+        checkSelect('q1c', 'evaluacion', 'Acción C (Comprobar función)');
+
+        // Section 2
+        reportDetails += `<h4>2. Análisis de Objetos Tecnológicos</h4>`;
+        checkSelect('q2a', 'tecnico', 'Análisis A (Materiales)');
+        checkSelect('q2b', 'socioeconomico', 'Análisis B (Impacto ambiental)');
+        checkSelect('q2c', 'formal', 'Análisis C (Dimensiones)');
+
+        // Section 3: Presupuesto
+        // 10*0.05 = 0.50
+        // 2*1.20 = 2.40
+        // 1*0.50 = 0.50
+        // Subtotal = 3.40
+        // IVA (21%) = 0.714 -> 0.71
+        // Total = 4.11
+        reportDetails += `<h4>3. Presupuesto del Proyecto</h4>`;
+        checkFloat('calc1', 0.50, 'Palitos de madera');
+        checkFloat('calc2', 2.40, 'Tablero contrachapado');
+        checkFloat('calc3', 0.50, 'Cola blanca');
+        checkFloat('calc_subtotal', 3.40, 'Subtotal materiales');
+        checkFloat('calc_iva', 0.71, 'IVA (21%)');
+        checkFloat('calc_total', 4.11, 'Coste total con IVA');
+
+        // Section 4
+        reportDetails += `<h4>4. Seguridad y Normas de Taller</h4>`;
+        checkSelect('q4a', 'F', 'Señal triangular es advertencia (no obligación)');
+        checkSelect('q4b', 'V', 'Conocer normas del taller');
+        checkSelect('q4c', 'V', 'Contenido del informe final');
+
+        // Section 5
+        reportDetails += `<h4>5. Análisis DAFO</h4>`;
+        checkSelect('q5a', 'debilidad', 'Falta de herramientas (Debilidad)');
+        checkSelect('q5b', 'amenaza', 'Aumento de precios (Amenaza)');
+
+        // Calculate Final Mark out of 10
+        let finalGrade = ((score / totalQuestions) * 10).toFixed(2);
+
+        let finalSummary = `
+            <div style="font-size: 1.2em; background: #eef; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                <strong>Nota Final: ${finalGrade} / 10</strong> (${score} aciertos de ${totalQuestions} preguntas)
+            </div>
+        `;
+
+        document.getElementById('report-details').innerHTML = finalSummary + reportDetails;
+        document.getElementById('report-section').style.display = 'block';
+        document.getElementById('download-btn').style.display = 'block';
+
+        // Prepare txt file content for download
+        globalReportText = `=================================================\n`;
+        globalReportText += `REPORTE DE EVALUACIÓN: EL PROCESO TECNOLÓGICO\n`;
+        globalReportText += `=================================================\n`;
+        globalReportText += `Alumno: ${name}\n`;
+        globalReportText += `Curso: ${group}\n`;
+        globalReportText += `Fecha: ${new Date().toLocaleString('es-ES')}\n`;
+        globalReportText += `Puntuación: ${finalGrade} / 10 (${score}/${totalQuestions} aciertos)\n`;
+        globalReportText += `-------------------------------------------------\n\n`;
+        
+        // Plain text details
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = reportDetails;
+        globalReportText += tempDiv.innerText.replace(/Correcto/g, "[OK]").replace(/Incorrecto/g, "[X]");
+
+        // Scroll down to report
+        document.getElementById('report-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function downloadReport() {
+        const name = document.getElementById('student-name').value.trim() || "Alumno";
+        const filename = `Reporte_Tecnologia_${name.replace(/\s+/g, '_')}.txt`;
+
+        const blob = new Blob([globalReportText], { type: 'text/plain;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
+</script>
+
+</body>
+</html>
